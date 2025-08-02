@@ -1,5 +1,6 @@
 from django.db import models
 from utils.models import BaseModel
+from accounts.models import Shopkeeper
 
 # Create your models here.
 
@@ -34,6 +35,36 @@ class Products(BaseModel):
     parent_product = models.ForeignKey("Products", on_delete=models.CASCADE, related_name="variants_products", null=True, blank=True)
     maximum_retail_price = models.FloatField()
 
+    def __str__(self):
+        return self.item_name
 
+    
+class VariantsOptions(BaseModel):
+    variant_name = models.CharField(max_length=200)
+    variant_option = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.variant_option
+
+class ProductVariant(BaseModel):
+    product = models.ForeignKey(Products, related_name="product_variants", on_delete=models.CASCADE)
+    variant_option = models.ManyToManyField(VariantsOptions)
+
+    def __str__(self):
+        return f"product variant {self.product.item_name}"
+
+class ProductImage(BaseModel):
+    product = models.ForeignKey(Products, related_name="product_image", on_delete=models.CASCADE)
+
+
+
+class VendorProducts(BaseModel):
+    shopkeeper = models.ForeignKey(Shopkeeper, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    vendor_selling_price = models.FloatField()
+    dealer_price = models.FloatField()
+    is_active = models.BooleanField(default=True)
+    delivery_fee = models.FloatField(default=0)
+    
 
 
