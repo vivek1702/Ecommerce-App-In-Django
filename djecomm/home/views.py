@@ -7,9 +7,21 @@ from django.contrib import messages
 from home.models import *
 from django.db.models import Sum, Q
 from django.contrib.auth.decorators import login_required
+from products.models import *
 
 # Create your views here.
 
 def home(request):
-    return render(request, "home/home.html")
+    category = Category.objects.all()
+    product = VendorProducts.objects.all()[:30]
+    context = {
+        "categories" : category,
+        "products" : product
+    }
+    return render(request, "home/home.html", context)
 
+def product_details(request, id):
+    product = VendorProducts.objects.get(id=id)
+    print(VendorProducts.product.variants_products.all())
+    context = {"product":product}
+    return render(request, "home/product_details.html", context)

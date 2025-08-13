@@ -34,4 +34,5 @@ admin.site.register(Products,ProductAdmin)
 admin.site.register(VariantsOptions)
 admin.site.register(ProductVariant,ProductVariantAdmin)
 admin.site.register(ProductImage)
+admin.site.register(VendorProducts, ProductVariantAdmin)
     

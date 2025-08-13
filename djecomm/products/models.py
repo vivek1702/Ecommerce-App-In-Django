@@ -37,6 +37,13 @@ class Products(BaseModel):
 
     def __str__(self):
         return self.item_name
+    
+    def getFirstImage(self):
+        if self.product_image.first():
+            return  self.product_image.first().image
+
+        return "https://static.vecteezy.com/system/resources/thumbnails/022/014/063/small/missing-picture-page-for-website-design-or-mobile-app-design-no-image-available-icon-vector.jpg"
+    
 
     
 class VariantsOptions(BaseModel):
@@ -45,6 +52,8 @@ class VariantsOptions(BaseModel):
 
     def __str__(self):
         return self.variant_option
+    
+
 
 class ProductVariant(BaseModel):
     product = models.ForeignKey(Products, related_name="product_variants", on_delete=models.CASCADE)
@@ -52,9 +61,11 @@ class ProductVariant(BaseModel):
 
     def __str__(self):
         return f"product variant {self.product.item_name}"
+    
 
 class ProductImage(BaseModel):
     product = models.ForeignKey(Products, related_name="product_image", on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="products/images/",null=True)
 
 
 
@@ -65,6 +76,12 @@ class VendorProducts(BaseModel):
     dealer_price = models.FloatField()
     is_active = models.BooleanField(default=True)
     delivery_fee = models.FloatField(default=0)
-    
+
+    def get_product_details(self):
+        return {
+            "product_name": self.product.item_name,
+            "product_image": self.product.getFirstImage()
+        }
+
 
 

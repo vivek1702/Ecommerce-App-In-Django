@@ -6,12 +6,12 @@
     <div class="col-md-3">
       <ul class="list-group mt-5" id="list-ul">
         {% for category in categories %}
-        {% if category.sub_categories.all %}
+        {% if category.subcategories.all %}
         <li class="list-group-item dropdown dropright">
           <a class="dropdown-toggle" href="#" id="navbarDropdownMenuLink-{{category.id}}" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{category.name}}</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-{{category.id}}">
-            {% for subcategory in category.sub_categories.all %}
+            {% for subcategory in category.subcategories.all %}
             <a class="dropdown-item" href="#">{{subcategory.name}} </a>
             {% endfor %}
           </div>
