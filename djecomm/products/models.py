@@ -48,7 +48,7 @@ class Products(BaseModel):
     
 class VariantsOptions(BaseModel):
     variant_name = models.CharField(max_length=200)
-    variant_option = models.CharField(max_length=200)
+    option_name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.variant_option
