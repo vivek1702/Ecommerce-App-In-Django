@@ -65,7 +65,7 @@ def login_view(request):
         return redirect('/')
         
 
-    return redirect(request , '/')
+    return redirect('/')
 
 
 def logout_view(request):
